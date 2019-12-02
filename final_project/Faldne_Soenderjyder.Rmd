@@ -1,0 +1,156 @@
+---
+title: "Faldne Sønderjyder i 1. Verdenskrig"
+author: "Jens Nielsen"
+date: "27/11/2019"
+output: word_document
+---
+#loading packages
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+#Loading data
+
+```{r}
+faldne <- read_excel("data/Kopi af faldne_MAX.xlsx")
+faldne
+```
+
+#Code from Max
+http://hax.odsbjerg.dk/twitter_scrape.html
+
+
+# Visualization
+
+```{r}
+faldne %>%
+  count(`Døds-årsag`, sort = TRUE) %>%
+  top_n(15) %>%
+  mutate(`Døds-årsag` = reorder(`Døds-årsag`, n)) %>%
+  ggplot(aes(x = `Døds-årsag`, y = n)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip() +
+      labs(x = "cause of death",
+      y = "number",
+      title = "Most common cause of death overall")
+```
+
+```{r}
+faldne %>%
+  count(Dødsland, sort = TRUE) %>%
+  top_n(15) %>%
+  mutate(Dødsland = reorder(Dødsland, n)) %>%
+  ggplot(aes(x = Dødsland, y = n)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip() +
+      labs(x = "Country",
+      y = "Number",
+      title = "Number of deaths geografically")
+```
+
+
+# Cause of death in France
+
+```{r}
+faldne %>%
+  filter(Dødsland == "Frankrig") %>% 
+  count(`Døds-årsag`, sort = TRUE) %>%
+  top_n(15) %>%
+  mutate(`Døds-årsag` = reorder(`Døds-årsag`, n)) %>%
+  ggplot(aes(x = `Døds-årsag`, y = n)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip() +
+      labs(x = "cause of death",
+      y = "number",
+      title = "Most common cause of death - France")
+```
+
+#Course of death in Russia
+
+```{r}
+faldne %>%
+  filter(Dødsland == "Frankrig") %>% 
+  count(`Døds-årsag`, sort = TRUE) %>%
+  top_n(15) %>%
+  mutate(`Døds-årsag` = reorder(`Døds-årsag`, n)) %>%
+  ggplot(aes(x = `Døds-årsag`, y = n)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip() +
+      labs(x = "cause of death",
+      y = "number",
+      title = "Most common cause of death - Russia")
+```
+
+
+#Cource of death in Belgium
+
+```{r}
+faldne %>%
+  filter(Dødsland == "Belgien") %>% 
+  count(`Døds-årsag`, sort = TRUE) %>%
+  top_n(15) %>%
+  mutate(`Døds-årsag` = reorder(`Døds-årsag`, n)) %>%
+  ggplot(aes(x = `Døds-årsag`, y = n)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip() +
+      labs(x = "cause of death",
+      y = "Number",
+      title = "Most common cause of death - Belgium")
+```
+
+# Most common age at the time of death
+
+
+```{r}
+faldne %>%
+  count(`Alder ved død`, sort = TRUE) %>%
+  top_n(15) %>%
+  mutate(`Alder ved død` = reorder(`Alder ved død`, n)) %>%
+  ggplot(aes(x = `Alder ved død`, y = n)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip() +
+      labs(x = "Age",
+      y = "Number",
+      title = "Most common age at death")
+```
+
+
+
+```{r}
+faldne %>%
+  filter( `Døds-årsag` == "Sygdom") %>% 
+  count(`Dødsland`, sort = TRUE) %>%
+  top_n(15) %>%
+  mutate(`Dødsland` = reorder(`Dødsland`, n)) %>%
+  ggplot(aes(x = `Dødsland`, y = n)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip() +
+      labs(x = "country",
+      y = "number",
+      title = "Casualties from sickness")
+```
+
+```{r}
+faldne %>%
+  filter(Dødsland == "Frankrig") %>% 
+  count(`Døds-årsag`, sort = TRUE) %>%
+  top_n(15) %>%
+  mutate(`Døds-årsag` = reorder(`Døds-årsag`, n)) %>%
+  ggplot(aes(x = `Døds-årsag`, y = n)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip() +
+      labs(x = "cause of death",
+      y = "number",
+      title = "Most common cause of death - France")
+```
+
+
